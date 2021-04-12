@@ -1,7 +1,8 @@
 import { ThemeProvider } from '@material-ui/core/styles';
-import { CssBaseline, Container, Typography } from '@material-ui/core';
+import { CssBaseline, Container } from '@material-ui/core';
 
 import MSAppBar from './components/MSAppBar';
+import MainPage from './components/MainPage';
 
 import useTheme from './hooks/useTheme';
 
@@ -19,10 +20,7 @@ const App = () => {
       <MSAppBar darkState={darkState} toogleTheme={toogleTheme} />
       <main className={classes.content}>
         <Container>
-          adaffds
-          <Typography component="h2" variant="h6" color="primary" gutterBottom>
-            cookolwiek
-          </Typography>
+          <MainPage />
         </Container>
       </main>
     </ThemeProvider>

@@ -8,11 +8,25 @@ const resources = {
   en: {
     translation: {
       'appBar.title': 'Music Sheet',
+      newMusic: 'New music',
+      'common.save': 'Save',
+      'common.cancel': 'Cancel',
+      'newMusic.author': 'Author',
+      'newMusic.tags': 'Tags',
+      'newMusic.title': 'Title',
+      'newMusic.year': 'Year',
     },
   },
   pl: {
     translation: {
       'appBar.title': 'Nuty',
+      newMusic: 'Nowy utwór',
+      'common.save': 'Zapisz',
+      'common.cancel': 'Anuluj',
+      'newMusic.author': 'Autor',
+      'newMusic.tags': 'Tagi',
+      'newMusic.title': 'Tytuł',
+      'newMusic.year': 'Rok',
     },
   },
 };
