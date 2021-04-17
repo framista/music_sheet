@@ -1,8 +1,11 @@
 import { useReducer } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Chip, Modal, TextField, Typography } from '@material-ui/core';
+import { Modal, TextField, Typography } from '@material-ui/core';
+import clsx from 'clsx';
 
 import MSModalFooter from '../MSModalFooter';
+import MSFileChooser from '../../MSFileChooser';
+import MSChipsList from '../../MSChipsList';
 
 import useStylesModal from '../modals.style';
 import useStylesMusicEntryModal from './MusicEntryModal.style';
@@ -16,6 +19,11 @@ const MusicEntryModal = (props) => {
   const onCancel = () => handleClose();
 
   const onConfirm = () => console.log('onConfirm');
+
+  const handleFile = (file) => {
+    console.log('handle file');
+    console.log(file);
+  };
 
   const tags = ['Chopin', 'piano'];
 
@@ -44,20 +52,22 @@ const MusicEntryModal = (props) => {
             label={t('newMusic.year')}
             className={classesMusicEntryModal.input}
           />
+          <div className={classesMusicEntryModal.fileChoose}>
+            <TextField
+              label={t('newMusic.file')}
+              className={clsx(
+                classesMusicEntryModal.fileInput,
+                classesMusicEntryModal.input
+              )}
+            />
+            <MSFileChooser handleFile={handleFile} />
+          </div>
           <TextField
             label={t('newMusic.tags')}
             className={classesMusicEntryModal.input}
           />
           <div className={classesMusicEntryModal.chipsContainer}>
-            {tags.map((tag) => (
-              <Chip
-                label={tag}
-                onDelete={() => console.log(tag)}
-                color="primary"
-                variant="outlined"
-                className={classesMusicEntryModal.chip}
-              />
-            ))}
+            <MSChipsList tags={tags} />
           </div>
         </form>
         <MSModalFooter onCancel={onCancel} onConfirm={onConfirm} />

@@ -10,10 +10,15 @@ const useStyles = makeStyles((theme) => ({
     margin: '0.4rem 0',
   },
   chipsContainer: {
-    margin: '0.4rem 0',
+    marginTop: '0.4rem',
   },
-  chip: {
-    marginRight: '5px',
+  fileChoose: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  fileInput: {
+    flex: 1,
   },
 }));
 
