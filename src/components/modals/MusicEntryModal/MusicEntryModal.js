@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useReducer, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Modal, TextField, Typography } from '@material-ui/core';
 import clsx from 'clsx';
@@ -6,6 +6,9 @@ import clsx from 'clsx';
 import MSModalFooter from '../MSModalFooter';
 import MSFileChooser from '../../MSFileChooser';
 import MSChipsList from '../../MSChipsList';
+
+import reducer from './reducer';
+import initialState from './initialState';
 
 import useStylesModal from '../modals.style';
 import useStylesMusicEntryModal from './MusicEntryModal.style';
@@ -16,16 +19,18 @@ const MusicEntryModal = (props) => {
   const classesMusicEntryModal = useStylesMusicEntryModal();
   const { t } = useTranslation();
 
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { author, title, year, file, tags, currentTag } = state;
+
+  useEffect(() => {
+    if (open) {
+      dispatch({ type: 'init', payload: initialState });
+    }
+  }, [open]);
+
   const onCancel = () => handleClose();
 
   const onConfirm = () => console.log('onConfirm');
-
-  const handleFile = (file) => {
-    console.log('handle file');
-    console.log(file);
-  };
-
-  const tags = ['Chopin', 'piano'];
 
   return (
     <Modal
@@ -42,15 +47,30 @@ const MusicEntryModal = (props) => {
           <TextField
             label={t('newMusic.title')}
             className={classesMusicEntryModal.input}
+            value={title}
+            error={!!state.errorTitle}
+            helperText={t(state.errorTitle)}
+            onChange={(e) =>
+              dispatch({ type: 'change_title', payload: e.target.value })
+            }
           />
           <TextField
             label={t('newMusic.author')}
             className={classesMusicEntryModal.input}
+            value={author}
+            onChange={(e) =>
+              dispatch({ type: 'change_author', payload: e.target.value })
+            }
           />
           <TextField
-            error
             label={t('newMusic.year')}
             className={classesMusicEntryModal.input}
+            value={year}
+            error={!!state.errorYear}
+            helperText={t(state.errorYear)}
+            onChange={(e) =>
+              dispatch({ type: 'change_year', payload: e.target.value })
+            }
           />
           <div className={classesMusicEntryModal.fileChoose}>
             <TextField
@@ -59,15 +79,33 @@ const MusicEntryModal = (props) => {
                 classesMusicEntryModal.fileInput,
                 classesMusicEntryModal.input
               )}
+              value={file}
+              onChange={(e) =>
+                dispatch({ type: 'change_file', payload: e.target.value })
+              }
             />
-            <MSFileChooser handleFile={handleFile} />
+            <MSFileChooser
+              handleFile={(f) =>
+                dispatch({ type: 'change_file', payload: f.name })
+              }
+            />
           </div>
           <TextField
             label={t('newMusic.tags')}
             className={classesMusicEntryModal.input}
+            value={currentTag}
+            error={!!state.errorCurrentTag}
+            helperText={t(state.errorCurrentTag)}
+            onKeyDown={(e) => dispatch({ type: 'add_tag', payload: e.key })}
+            onChange={(e) =>
+              dispatch({ type: 'change_tag', payload: e.target.value })
+            }
           />
           <div className={classesMusicEntryModal.chipsContainer}>
-            <MSChipsList tags={tags} />
+            <MSChipsList
+              tags={tags}
+              onDelete={(tag) => dispatch({ type: 'remove_tag', payload: tag })}
+            />
           </div>
         </form>
         <MSModalFooter onCancel={onCancel} onConfirm={onConfirm} />

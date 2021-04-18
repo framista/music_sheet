@@ -3,17 +3,18 @@ import { Chip } from '@material-ui/core';
 
 import useStyles from './MSChipsList.style';
 
-const MSChipsList = ({ tags }) => {
+const MSChipsList = ({ tags, onDelete }) => {
   const classes = useStyles();
   return (
     <>
       {tags.map((tag) => (
         <Chip
           label={tag}
-          onDelete={() => console.log(tag)}
+          onDelete={() => onDelete(tag)}
           color="primary"
           variant="outlined"
           className={classes.chip}
+          key={tag}
         />
       ))}
     </>
@@ -22,6 +23,7 @@ const MSChipsList = ({ tags }) => {
 
 MSChipsList.propTypes = {
   tags: PropTypes.arrayOf(PropTypes.string),
+  onDelete: PropTypes.func,
 };
 
 export default MSChipsList;
