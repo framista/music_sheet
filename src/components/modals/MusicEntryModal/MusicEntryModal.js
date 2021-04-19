@@ -20,7 +20,7 @@ const MusicEntryModal = (props) => {
   const { t } = useTranslation();
 
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { author, title, year, file, tags, currentTag } = state;
+  const { id, author, title, year, file, tags, currentTag, canBeSaved } = state;
 
   useEffect(() => {
     if (open) {
@@ -28,9 +28,25 @@ const MusicEntryModal = (props) => {
     }
   }, [open]);
 
+  useEffect(() => {
+    if (state.canBeSaved) {
+      try {
+        const musics =
+          JSON.parse(localStorage.getItem('musicsheet_musics')) || [];
+        localStorage.setItem(
+          'musicsheet_musics',
+          JSON.stringify([...musics, { id, title, author, year, file, tags }])
+        );
+        handleClose();
+      } catch (error) {}
+    }
+  }, [canBeSaved]);
+
   const onCancel = () => handleClose();
 
-  const onConfirm = () => console.log('onConfirm');
+  const onConfirm = () => {
+    dispatch({ type: 'validate_all' });
+  };
 
   return (
     <Modal
@@ -58,6 +74,8 @@ const MusicEntryModal = (props) => {
             label={t('newMusic.author')}
             className={classesMusicEntryModal.input}
             value={author}
+            error={!!state.errorAuthor}
+            helperText={t(state.errorAuthor)}
             onChange={(e) =>
               dispatch({ type: 'change_author', payload: e.target.value })
             }
@@ -80,6 +98,8 @@ const MusicEntryModal = (props) => {
                 classesMusicEntryModal.input
               )}
               value={file}
+              error={!!state.errorFile}
+              helperText={t(state.errorFile)}
               onChange={(e) =>
                 dispatch({ type: 'change_file', payload: e.target.value })
               }

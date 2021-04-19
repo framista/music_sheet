@@ -23,6 +23,8 @@ const resources = {
       'newMusic.tag.unique': 'Tag should be unique.',
       'newMusic.tag.tooShort': 'Tag is too short',
       'newMusic.tag.tooLong': 'Tag is too long',
+      'newMusic.file.tooShort': 'File is too short',
+      'newMusic.author.tooLong': 'Author is too long',
     },
   },
   pl: {
@@ -43,6 +45,8 @@ const resources = {
       'newMusic.tag.unique': 'Nazwy tagów nie mogą się powtarzać',
       'newMusic.tag.tooShort': 'Nazwa taga jest za krótka',
       'newMusic.tag.tooLong': 'Nazwa taga jest za długa',
+      'newMusic.file.tooShort': 'Nazwa pliku jest za krótka',
+      'newMusic.author.tooLong': 'Autor jest za długi',
     },
   },
 };

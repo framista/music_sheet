@@ -1,43 +1,58 @@
+import validateField from '../../../utils/validation';
+
 const reducer = (state, action) => {
   switch (action.type) {
     case 'init': {
       return { ...action.payload };
     }
+    case 'validate_all': {
+      const { title, author, year, file } = state;
+      const errorTitle = validateField('title', title);
+      const errorAuthor = validateField('author', author);
+      const errorYear = validateField('year', year);
+      const errorFile = validateField('file', file);
+      const errors = errorTitle || errorAuthor || errorYear || errorFile;
+      return {
+        ...state,
+        errorTitle,
+        errorAuthor,
+        errorYear,
+        errorFile,
+        canBeSaved: !errors,
+      };
+    }
     case 'change_title': {
       const title = action.payload;
-      if (title.trim().length < 3)
-        return { ...state, errorTitle: 'newMusic.title.tooShort', title };
-      if (title.length > 30)
-        return { ...state, errorTitle: 'newMusic.title.tooLong', title };
+      const errorTitle = validateField('title', title);
       return {
         ...state,
         title,
-        errorTitle: '',
+        errorTitle,
       };
     }
     case 'change_author': {
       const author = action.payload;
-      return { ...state, author };
+      const errorAuthor = validateField('author', author);
+      return { ...state, author, errorAuthor };
     }
     case 'change_year': {
       const year = action.payload;
       if (year.match(/\D/)) return state;
-      if (!year.match(/^\d{4}$/) || parseInt(year) > new Date().getFullYear())
-        return { ...state, errorYear: 'newMusic.year.incorrect', year };
-      return { ...state, year, errorYear: '' };
+      const errorYear = validateField('year', year);
+      return { ...state, year, errorYear };
     }
     case 'change_file': {
-      return { ...state, file: action.payload };
+      const file = action.payload;
+      const errorFile = validateField('file', file);
+      return { ...state, file, errorFile };
     }
     case 'add_tag': {
       if (action.payload !== 'Enter') return state;
       const currentTag = state.currentTag.trim();
-      if (state.tags.includes(currentTag))
-        return { ...state, errorCurrentTag: 'newMusic.tag.unique' };
-      if (currentTag.length < 3)
-        return { ...state, errorCurrentTag: 'newMusic.tag.tooShort' };
-      if (currentTag.length > 20)
-        return { ...state, errorCurrentTag: 'newMusic.tag.tooLong' };
+      const errorCurrentTag = validateField('currentTag', currentTag, {
+        tags: state.tags,
+      });
+      if (errorCurrentTag) return { ...state, errorCurrentTag };
       return {
         ...state,
         tags: [...state.tags, currentTag],
@@ -45,7 +60,11 @@ const reducer = (state, action) => {
       };
     }
     case 'change_tag': {
-      return { ...state, currentTag: action.payload, errorCurrentTag: '' };
+      const currentTag = action.payload;
+      const errorCurrentTag = validateField('currentTag', currentTag, {
+        tags: state.tags,
+      });
+      return { ...state, currentTag, errorCurrentTag };
     }
     case 'remove_tag': {
       const tags = state.tags.filter((tag) => tag !== action.payload);
