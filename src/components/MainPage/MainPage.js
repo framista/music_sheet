@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@material-ui/core';
 
 import MusicEntryModal from '../modals/MusicEntryModal';
+import MusicList from '../MusicList';
 
 const MainPage = () => {
   const [showModal, setShowModal] = useState(false);
@@ -10,7 +11,10 @@ const MainPage = () => {
 
   return (
     <>
-      <MusicEntryModal open={showModal} handleClose={() => setShowModal(false)} />
+      <MusicEntryModal
+        open={showModal}
+        handleClose={() => setShowModal(false)}
+      />
       <Button
         variant="contained"
         color="primary"
@@ -18,6 +22,7 @@ const MainPage = () => {
       >
         {t('newMusic')}
       </Button>
+      <MusicList />
     </>
   );
 };

@@ -25,6 +25,7 @@ const resources = {
       'newMusic.tag.tooLong': 'Tag is too long',
       'newMusic.file.tooShort': 'File is too short',
       'newMusic.author.tooLong': 'Author is too long',
+      'mucic.authorUnknown': 'Unknown',
     },
   },
   pl: {
@@ -47,6 +48,7 @@ const resources = {
       'newMusic.tag.tooLong': 'Nazwa taga jest za długa',
       'newMusic.file.tooShort': 'Nazwa pliku jest za krótka',
       'newMusic.author.tooLong': 'Autor jest za długi',
+      'mucic.authorUnknown': 'Nieznany',
     },
   },
 };

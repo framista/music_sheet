@@ -1,5 +1,6 @@
 import { ThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline, Container } from '@material-ui/core';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import MSAppBar from './components/MSAppBar';
 import MainPage from './components/MainPage';
@@ -15,15 +16,19 @@ const App = () => {
   const classes = useStyles();
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <MSAppBar darkState={darkState} toogleTheme={toogleTheme} />
-      <main className={classes.content}>
-        <Container>
-          <MainPage />
-        </Container>
-      </main>
-    </ThemeProvider>
+    <Router>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <MSAppBar darkState={darkState} toogleTheme={toogleTheme} />
+        <main className={classes.content}>
+          <Container>
+            <Switch>
+              <Route path={'/'} component={MainPage} />
+            </Switch>
+          </Container>
+        </main>
+      </ThemeProvider>
+    </Router>
   );
 };
 
