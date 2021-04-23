@@ -9,7 +9,6 @@ import useTheme from './hooks/useTheme';
 
 import 'normalize.css';
 import useStyles from './App.style';
-import './App.css';
 
 const App = () => {
   const [darkState, theme, toogleTheme] = useTheme();
