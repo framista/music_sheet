@@ -6,14 +6,19 @@ import Alert from '@material-ui/lab/Alert';
 import MusicEntryModal from '../modals/MusicEntryModal';
 import MusicList from '../MusicList';
 
+const getMusicSheets = () =>
+  JSON.parse(localStorage.getItem('musicsheet_musics')) || [];
+
 const MainPage = () => {
   const [showModal, setShowModal] = useState(false);
+  const [musicSheets, setMusicSheets] = useState(getMusicSheets());
   const [resultSubmitModal, setResultSubmitModal] = useState('');
   const { t } = useTranslation();
 
   const handleCloseMusicEntryModal = (type = 'cancel') => {
     setShowModal(false);
     if (type === 'success') {
+      setMusicSheets(getMusicSheets());
       return setResultSubmitModal({
         type: 'success',
         message: t('newMusic.successSaved'),
@@ -51,7 +56,7 @@ const MainPage = () => {
       >
         {t('newMusic')}
       </Button>
-      <MusicList />
+      <MusicList musicSheets={musicSheets} />
     </>
   );
 };

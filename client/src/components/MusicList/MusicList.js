@@ -1,19 +1,11 @@
-import { useEffect, useState } from 'react';
 import { Grid } from '@material-ui/core';
 
 import MusicListItem from './MusicListItem';
 
 import useStyles from './MusicList.style';
 
-const MusicList = () => {
-  const [musicSheets, setMusicSheets] = useState([]);
+const MusicList = ({ musicSheets}) => {
   const classes = useStyles();
-
-  useEffect(() => {
-    const musicSheets =
-      JSON.parse(localStorage.getItem('musicsheet_musics')) || [];
-    setMusicSheets(musicSheets);
-  }, []);
 
   return (
     <>
