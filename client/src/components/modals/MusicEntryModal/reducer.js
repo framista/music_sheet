@@ -42,9 +42,9 @@ const reducer = (state, action) => {
       return { ...state, year, errorYear };
     }
     case 'change_file': {
-      const file = action.payload;
+      const file = action.payload.name;
       const errorFile = validateField('file', file);
-      return { ...state, file, errorFile };
+      return { ...state, file, errorFile, fileContent: action.payload };
     }
     case 'add_tag': {
       if (action.payload !== 'Enter') return state;

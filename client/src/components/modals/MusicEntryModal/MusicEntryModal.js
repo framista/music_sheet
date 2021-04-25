@@ -2,6 +2,7 @@ import { useReducer, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Modal, TextField, Typography } from '@material-ui/core';
 import clsx from 'clsx';
+import axios from 'axios';
 
 import MSModalFooter from '../MSModalFooter';
 import MSFileChooser from '../../MSFileChooser';
@@ -30,15 +31,22 @@ const MusicEntryModal = (props) => {
 
   useEffect(() => {
     if (state.canBeSaved) {
-      try {
-        const musics =
-          JSON.parse(localStorage.getItem('musicsheet_musics')) || [];
-        localStorage.setItem(
-          'musicsheet_musics',
-          JSON.stringify([...musics, { id, title, author, year, file, tags }])
-        );
-        handleClose();
-      } catch (error) {}
+      const formData = new FormData();
+      formData.append('file', state.fileContent);
+      axios
+        .post('http://localhost:5000/musicsheet', formData, {
+          params: { id },
+        })
+        .then(() => {
+          const musics =
+            JSON.parse(localStorage.getItem('musicsheet_musics')) || [];
+          localStorage.setItem(
+            'musicsheet_musics',
+            JSON.stringify([...musics, { id, title, author, year, file, tags }])
+          );
+          handleClose('success');
+        })
+        .catch(() => handleClose('error'));
     }
   }, [canBeSaved]);
 
@@ -100,13 +108,11 @@ const MusicEntryModal = (props) => {
               value={file}
               error={!!state.errorFile}
               helperText={t(state.errorFile)}
-              onChange={(e) =>
-                dispatch({ type: 'change_file', payload: e.target.value })
-              }
+              disabled
             />
             <MSFileChooser
-              handleFile={(f) =>
-                dispatch({ type: 'change_file', payload: f.name })
+              handleFile={(fileContent) =>
+                dispatch({ type: 'change_file', payload: fileContent })
               }
             />
           </div>

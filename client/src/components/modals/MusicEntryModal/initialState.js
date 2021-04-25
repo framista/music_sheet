@@ -13,6 +13,7 @@ const initialState = {
   errorYear: '',
   errorFile: '',
   errorCurrentTag: '',
+  fileContent: null,
 };
 
 export default initialState;

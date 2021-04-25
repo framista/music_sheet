@@ -5,12 +5,12 @@ import { useTranslation } from 'react-i18next';
 import useStyles from './MusicListItem.style';
 
 const MusicListItem = ({ musicSheet }) => {
-  const { title, author, year, file } = musicSheet;
+  const { title, author, year, id } = musicSheet;
   const classes = useStyles();
   const { t } = useTranslation();
 
   const openMusicSheet = () => {
-    const url = `http://127.0.0.1:5500/music/index.html?file=${file}`;
+    const url = `http://127.0.0.1:5500/client/music/index.html?file=${id}`;
     window.open(url, '_blank');
   };
 
