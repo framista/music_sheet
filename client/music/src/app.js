@@ -61,8 +61,11 @@ const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const file = urlParams.get('file');
 
+// .getDocument(`http://localhost:5000/musicsheet?file=${file}`)
 pdfjsLib
-  .getDocument(`http://localhost:5000/musicsheet?file=${file}`)
+  .getDocument(
+    `https://framista-musicsheet.herokuapp.com/musicsheet?file=${file}`
+  )
   .promise.then(function (pdfDoc_) {
     pdfDoc = pdfDoc_;
     renderPage(pageNum);

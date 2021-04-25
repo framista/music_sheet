@@ -10,7 +10,8 @@ const MusicListItem = ({ musicSheet }) => {
   const { t } = useTranslation();
 
   const openMusicSheet = () => {
-    const url = `http://127.0.0.1:5500/client/music/index.html?file=${id}`;
+    // const url = `http://127.0.0.1:5500/client/music/index.html?file=${id}`;
+    const url = `https://framista.github.io/music_sheet/client/music/index.html?file=${id}`;
     window.open(url, '_blank');
   };
 
