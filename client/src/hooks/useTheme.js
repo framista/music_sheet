@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { createMuiTheme } from '@material-ui/core/styles';
-import { lightBlue } from '@material-ui/core/colors';
+import { orange } from '@material-ui/core/colors';
 
 const colors = {
   primary: {
-    main: lightBlue[500],
+    main: orange[400],
   },
   secondary: {
-    main: lightBlue[200],
+    main: orange[200],
   },
 };
 
