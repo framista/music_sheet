@@ -3,6 +3,7 @@ const fileUpload = require('express-fileupload');
 const cors = require('cors');
 const fs = require('fs');
 const app = express();
+const path = require('path');
 
 app.use(express.static('public'));
 app.use(cors());
