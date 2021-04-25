@@ -3,49 +3,29 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>NuteNext</title>
+    <title>Music Sheet</title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="" />
+    <script src="https://webgazer.cs.brown.edu/tensorflow.js" defer></script>
     <script src="https://webgazer.cs.brown.edu/webgazer.js?" defer></script>
     <script
       src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.3.200/build/pdf.min.js"
       defer
     ></script>
     <script src="./src/app.js" defer></script>
-    <style>
-      body {
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-        flex-direction: column;
-      }
-      canvas {
-        border: 2px solid #ddd;
-      }
-      .navigationBar {
-        width: 20vw;
-        position: fixed;
-        top: 0;
-        bottom: 0;
-        background-color: #ddd;
-      }
-      .navigationBar-right {
-        right: 0;
-      }
-      .navigationBar-left {
-        left: 0;
-      }
-    </style>
+    <link rel="stylesheet" href="./styles/style.css" />
   </head>
   <body>
+    <div class="notFound">
+      <h3>File not found</h3>
+      <img src="./styles/images/not_found.png" alt="not_found" />
+    </div>
     <div class="navigationBar navigationBar-left"></div>
+    <div id="pagesInfo"></div>
     <div>
       <canvas id="cnv"></canvas>
     </div>
-    <div id="pagesInfo"></div>
     <div class="navigationBar navigationBar-right"></div>
   </body>
 </html>

@@ -60,17 +60,16 @@ function onNextPage() {
 const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
 const file = urlParams.get('file');
-console.log(file);
 
 pdfjsLib
-  .getDocument('E:muzykapopularne\reduce_soundOfSilence.pdf')
+  .getDocument(`http://localhost:5000/musicsheet?file=${file}`)
   .promise.then(function (pdfDoc_) {
     pdfDoc = pdfDoc_;
     renderPage(pageNum);
   })
-  .catch((err) => {
-    console.log(err);
-    console.log('Plik nie istnieje');
+  .catch(() => {
+    const notFoundComponent = document.querySelector('.notFound');
+    notFoundComponent.classList.add('visible');
   });
 
 window.saveDataAcrossSessions = true;

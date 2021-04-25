@@ -1,0 +1,41 @@
+body {
+  margin: 10px 0 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  flex-direction: column;
+}
+.navigationBar {
+  width: 20vw;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  background-color: #424242;
+}
+.navigationBar-right {
+  right: 0;
+}
+.navigationBar-left {
+  left: 0;
+}
+.notFound {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 5px 5px 15px 5px #000000;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+  padding: 40px;
+  display: none;
+}
+.notFound img {
+  max-width: 300px;
+}
+.visible {
+  display: flex;
+}
